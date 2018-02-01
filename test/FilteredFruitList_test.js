@@ -33,7 +33,7 @@ describe('<FilteredFruitList />', () => {
 
   beforeEach(() => {
     wrapper = !FilteredFruitList.prototype ? shallow(<Noop />) :
-      shallow(<FilteredFruitList fruit={fruit} filter={null} />);
+      shallow(<FilteredFruitList items={fruit} currentFilter={null} />);
   });
 
   it('should be a stateless functional component', () => {
@@ -47,13 +47,13 @@ describe('<FilteredFruitList />', () => {
   it('should have a defaultProp "fruit"', () => {
     const defaultProps = FilteredFruitList.defaultProps;
     expect(defaultProps, 'defaultProps is not defined.').to.exist;
-    expect(defaultProps).to.have.any.key('fruit');
+    expect(defaultProps).to.have.any.key('items');
   });
 
   it('should have a defaultProp "filter"', () => {
     const defaultProps = FilteredFruitList.defaultProps;
     expect(defaultProps, 'defaultProps is not defined.').to.exist;
-    expect(defaultProps).to.have.any.key('filter');
+    expect(defaultProps).to.have.any.key('currentFilter');
   });
 
   it('should have a top-level ul element with class "fruit-list"', () => {
@@ -66,13 +66,13 @@ describe('<FilteredFruitList />', () => {
 
   it('should render list of correct length when "pome" filter applied', () => {
     wrapper = !FilteredFruitList.prototype ? shallow(<Noop />) :
-      shallow(<FilteredFruitList fruit={fruit} filter='pome' />);
+      shallow(<FilteredFruitList items={fruit} currentFilter='pome' />);
     expect(wrapper.find('li').length).to.equal(2, 'Fruit list wrong length given filter "pome".');
   });
 
   it('should only list fruit of type pome when pome filter applied', () => {
     wrapper = !FilteredFruitList.prototype ? shallow(<Noop />) :
-      shallow(<FilteredFruitList fruit={fruit} filter='pome' />);
+      shallow(<FilteredFruitList items={fruit} currentFilter='pome' />);
     expect(wrapper.find('li').length).to.equal(2, 'No fruit in list.');
     wrapper.find('li').forEach(n => {
       expect(n.text()).to.match(/🍏|🍎/,
